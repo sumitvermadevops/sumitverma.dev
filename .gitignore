@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build artifacts
+dist/
+.cache/
+
+# Temporary
+tmp/
+temp/
+
+# Screenshots (review/test artifacts)
+*.png
+full-page.jpeg
+
+# Documents
+*.docx
+
+# Claude Code / Playwright
+.claude/
+.playwright-mcp/
+
+# Internal docs
+plans/
+tasks/
+docs/
+scripts/
