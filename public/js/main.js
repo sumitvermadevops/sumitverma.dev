@@ -108,6 +108,124 @@ if (navToggle && navLinks) {
   });
 }
 
+/* --- 5b. Theme Toggle (dark/light) --- */
+const themeToggle = document.getElementById("themeToggle");
+if (themeToggle) {
+  const stored = localStorage.getItem("theme");
+  if (stored) {
+    document.documentElement.setAttribute("data-theme", stored);
+  }
+
+  themeToggle.addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme");
+    const next = current === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  });
+}
+
+/* --- 5c. Back to Top Button --- */
+const backToTop = document.getElementById("backToTop");
+if (backToTop) {
+  window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("visible", window.scrollY > 600);
+  }, { passive: true });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+/* --- 5d. Cursor Glow Effect --- */
+const cursorGlow = document.getElementById("cursorGlow");
+if (cursorGlow && !window.matchMedia("(pointer: coarse)").matches
+    && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  let glowX = 0, glowY = 0, currentX = 0, currentY = 0;
+  let animating = false;
+
+  document.addEventListener("mousemove", (e) => {
+    glowX = e.clientX;
+    glowY = e.clientY;
+    if (!cursorGlow.classList.contains("active")) {
+      cursorGlow.classList.add("active");
+    }
+    if (!animating) {
+      animating = true;
+      requestAnimationFrame(function moveGlow() {
+        currentX += (glowX - currentX) * 0.15;
+        currentY += (glowY - currentY) * 0.15;
+        cursorGlow.style.left = currentX + "px";
+        cursorGlow.style.top = currentY + "px";
+        if (Math.abs(glowX - currentX) > 0.5 || Math.abs(glowY - currentY) > 0.5) {
+          requestAnimationFrame(moveGlow);
+        } else {
+          animating = false;
+        }
+      });
+    }
+  });
+
+  document.addEventListener("mouseleave", () => {
+    cursorGlow.classList.remove("active");
+  });
+}
+
+/* --- 5e. Animated Impact Counters --- */
+const counterObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters(entry.target);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+const impactGrid = document.querySelector(".impact__grid");
+if (impactGrid && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  counterObserver.observe(impactGrid);
+}
+
+function animateCounters(container) {
+  const numbers = container.querySelectorAll(".impact__number[data-count]");
+  numbers.forEach(el => {
+    const target = parseFloat(el.dataset.count);
+    const prefix = el.dataset.prefix || "";
+    const suffix = el.dataset.suffix || "";
+    const decimals = parseInt(el.dataset.decimals) || 0;
+    const separator = el.dataset.separator || "";
+    const duration = 1800;
+    const start = performance.now();
+
+    function easeOutQuart(t) {
+      return 1 - Math.pow(1 - t, 4);
+    }
+
+    function formatNumber(num) {
+      const fixed = num.toFixed(decimals);
+      if (separator) {
+        const parts = fixed.split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+        return parts.join(".");
+      }
+      return fixed;
+    }
+
+    function tick(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeOutQuart(progress);
+      const current = eased * target;
+      el.textContent = prefix + formatNumber(current) + suffix;
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      }
+    }
+
+    el.textContent = prefix + formatNumber(0) + suffix;
+    requestAnimationFrame(tick);
+  });
+}
+
 /* --- 6. CSRF Token — Promise-based (handles 15-min expiry) --- */
 let csrfTokenPromise = fetch("/api/csrf")
   .then(r => r.json())
