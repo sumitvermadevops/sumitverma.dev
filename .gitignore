@@ -30,8 +30,9 @@ tmp/
 temp/
 
 # Screenshots (review/test artifacts)
-*.png
+/*.png
 full-page.jpeg
+!public/images/**/*.png
 
 # Documents
 *.docx
