@@ -29,8 +29,8 @@
   <link rel="preload" href="/fonts/GeistVF.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- Styles -->
-  <link rel="preload" href="/css/styles.css?v=8" as="style">
-  <link rel="stylesheet" href="/css/styles.css?v=8">
+  <link rel="preload" href="/css/styles.css?v=10" as="style">
+  <link rel="stylesheet" href="/css/styles.css?v=10">
 
   <!-- JSON-LD -->
   <script type="application/ld+json">
@@ -114,11 +114,15 @@
   <!-- Hero -->
   <section class="hero" aria-label="Introduction">
     <div class="hero__content container">
-      <p class="hero__meta mono">Cloud & Infrastructure Solutions Architect</p>
-      <h1 class="hero__title">Infrastructure that <span class="hero__accent">scales</span>. Systems that don't break.</h1>
-      <p class="hero__subtitle">14+ years in cloud and infrastructure architecture, working with Fortune 500 clients, banks, and global enterprises across AWS, Azure, GCP, and VMware. Creating self-service infrastructure so teams ship faster.</p>
-      <div class="hero__actions">
-        <a href="#experience" class="btn btn-primary">View Experience</a>
+      <div class="hero__left">
+        <p class="hero__meta mono">Cloud & Infrastructure Solutions Architect</p>
+        <h1 class="hero__title">Infrastructure that <span class="hero__accent">scales</span>. Systems that don't break.</h1>
+      </div>
+      <div class="hero__right">
+        <p class="hero__subtitle">14+ years in cloud and infrastructure architecture, working with Fortune 500 clients, banks, and global enterprises across AWS, Azure, GCP, and VMware. Creating self-service infrastructure so teams ship faster.</p>
+        <div class="hero__actions">
+          <a href="#experience" class="btn btn-primary">View Experience</a>
+        </div>
       </div>
     </div>
   </section>
@@ -128,14 +132,14 @@
     <div class="container">
       <p class="trusted__label mono">Trusted by teams at</p>
       <div class="trusted__logos">
-        <img src="/images/clients/Bell.webp" alt="Bell" width="100" height="28" loading="lazy" decoding="async">
-        <img src="/images/clients/scotiabank.webp" alt="Scotiabank" width="120" height="28" loading="lazy" decoding="async">
-        <img src="/images/clients/toyota-financial.webp" alt="Toyota Financial Services" width="110" height="28" loading="lazy" decoding="async">
-        <img src="/images/clients/cgi.webp" alt="CGI" width="60" height="28" loading="lazy" decoding="async">
-        <img src="/images/clients/hcltech.webp" alt="HCLTech" width="90" height="28" loading="lazy" decoding="async">
-        <img src="/images/clients/BlueYonder.webp" alt="Blue Yonder" width="110" height="28" loading="lazy" decoding="async">
-        <img src="/images/clients/arvato.webp" alt="Arvato" width="90" height="28" loading="lazy" decoding="async">
-        <img src="/images/clients/dnb.webp" alt="D&B" width="70" height="28" loading="lazy" decoding="async">
+        <img src="/images/clients/Bell.png" alt="Bell" width="157" height="44" loading="lazy" decoding="async">
+        <img src="/images/clients/scotiabank.png" alt="Scotiabank" width="188" height="44" loading="lazy" decoding="async">
+        <img src="/images/clients/toyota-financial.png" alt="Toyota Financial Services" width="173" height="44" loading="lazy" decoding="async">
+        <img src="/images/clients/cgi.png" alt="CGI" width="94" height="44" loading="lazy" decoding="async">
+        <img src="/images/clients/hcltech.png" alt="HCLTech" width="141" height="44" loading="lazy" decoding="async">
+        <img src="/images/clients/BlueYonder.png" alt="Blue Yonder" width="173" height="44" loading="lazy" decoding="async">
+        <img src="/images/clients/arvato.png" alt="Arvato" width="141" height="44" loading="lazy" decoding="async">
+        <img src="/images/clients/dnb.png" alt="D&B" width="110" height="44" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
@@ -166,15 +170,18 @@
 
   <!-- Experience -->
   <section class="experience" id="experience" aria-labelledby="experience-heading">
-    <div class="container">
-      <p class="section-number mono">01 //</p>
-      <h2 id="experience-heading" class="section-heading">Experience</h2>
+    <div class="container experience__layout">
+      <div class="experience__sidebar">
+        <p class="section-number mono">01 //</p>
+        <h2 id="experience-heading" class="section-heading">Experience</h2>
+      </div>
+      <div class="experience__content">
 
       <!-- Scotiabank -->
       <details class="exp-item reveal" open>
         <summary class="exp-header">
           <div class="exp-header__left">
-            <img src="/images/clients/scotiabank.webp" alt="Scotiabank" width="120" height="28" class="exp-logo" loading="lazy" decoding="async">
+            <img src="/images/clients/scotiabank.png" alt="Scotiabank" width="120" height="28" class="exp-logo" loading="lazy" decoding="async">
             <div class="exp-header__info">
               <h3 class="exp-title">Sr. Cloud Native Platform Engineer</h3>
               <p class="exp-company mono">Scotiabank &middot; Toronto, ON</p>
@@ -206,7 +213,7 @@
       <details class="exp-item reveal">
         <summary class="exp-header">
           <div class="exp-header__left">
-            <img src="/images/clients/cgi.webp" alt="CGI" width="60" height="28" class="exp-logo" loading="lazy" decoding="async">
+            <img src="/images/clients/cgi.png" alt="CGI" width="60" height="28" class="exp-logo" loading="lazy" decoding="async">
             <div class="exp-header__info">
               <h3 class="exp-title">Cloud Architect / DevOps & IaC Lead</h3>
               <p class="exp-company mono">CGI &middot; Markham, ON</p>
@@ -342,7 +349,7 @@
       <details class="exp-item reveal">
         <summary class="exp-header">
           <div class="exp-header__left">
-            <img src="/images/clients/hcltech.webp" alt="HCLTech" width="90" height="28" class="exp-logo" loading="lazy" decoding="async">
+            <img src="/images/clients/hcltech.png" alt="HCLTech" width="90" height="28" class="exp-logo" loading="lazy" decoding="async">
             <div class="exp-header__info">
               <h3 class="exp-title">Infrastructure Solutions Architect / Lead Architect</h3>
               <p class="exp-company mono">HCL Technologies &middot; Canada & India</p>
@@ -520,6 +527,7 @@
         </div>
       </details>
 
+      </div><!-- /.experience__content -->
     </div>
   </section>
 
@@ -530,14 +538,18 @@
       <h2 id="about-heading" class="section-heading">About</h2>
 
       <div class="about__intro reveal">
-        <picture>
-          <source srcset="/images/headshot.webp" type="image/webp">
-          <img src="/images/headshot.png" alt="Sumit Verma" width="120" height="120" class="about__photo" loading="lazy" decoding="async">
-        </picture>
-        <div class="about__bio">
-          <p>I'm a Cloud & Infrastructure Solutions Architect based in the Greater Toronto Area. For over 14 years, I've worked with Fortune 500 clients, banks, and global enterprises — building, migrating, and running the infrastructure that lets engineering teams focus on shipping product.</p>
-          <p>I've led teams of up to 8 engineers across financial services, telecom, automotive, insurance, and enterprise tech — designing cloud platforms, driving IaC (Terraform), taming CI/CD pipelines, and turning infrastructure costs into strategic advantages. Comfortable owning things end-to-end from pre-sales solutioning through to delivery.</p>
-          <p>Hands-on with CI/CD (GitLab), FinOps, ServiceNow ITSM/ITOM, and TOGAF-based architecture. Known for bringing structure and repeatability to complex environments.</p>
+        <div class="about__photo-col">
+          <picture>
+            <source srcset="/images/headshot.webp" type="image/webp">
+            <img src="/images/headshot.png" alt="Sumit Verma" width="120" height="120" class="about__photo" loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <div class="about__bio-col">
+          <div class="about__bio">
+            <p>I'm a Cloud & Infrastructure Solutions Architect based in the Greater Toronto Area. For over 14 years, I've worked with Fortune 500 clients, banks, and global enterprises — building, migrating, and running the infrastructure that lets engineering teams focus on shipping product.</p>
+            <p>I've led teams of up to 8 engineers across financial services, telecom, automotive, insurance, and enterprise tech — designing cloud platforms, driving IaC (Terraform), taming CI/CD pipelines, and turning infrastructure costs into strategic advantages. Comfortable owning things end-to-end from pre-sales solutioning through to delivery.</p>
+            <p>Hands-on with CI/CD (GitLab), FinOps, ServiceNow ITSM/ITOM, and TOGAF-based architecture. Known for bringing structure and repeatability to complex environments.</p>
+          </div>
         </div>
       </div>
 
@@ -691,12 +703,14 @@
   <!-- Contact -->
   <section class="contact" id="contact" aria-labelledby="contact-heading">
     <div class="container">
-      <p class="section-number mono">04 //</p>
-      <h2 id="contact-heading" class="section-heading">Let's talk.</h2>
-      <p class="contact__subtitle">Have a project in mind or want to discuss how I can help your team? Reach out on LinkedIn.</p>
-
-      <div class="contact__grid">
+      <div class="contact__inner">
+        <div class="contact__left">
+          <p class="section-number mono">04 //</p>
+          <h2 id="contact-heading" class="section-heading">Let's talk.</h2>
+          <p class="contact__subtitle">Have a project in mind or want to discuss how I can help your team? Reach out on LinkedIn.</p>
           <a href="https://www.linkedin.com/in/sumitvrma/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Reach Out on LinkedIn</a>
+        </div>
+        <div class="contact__right">
           <div class="contact__links">
             <button class="contact-link" id="copyEmail" data-email="sumit.v@live.com" aria-live="polite">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
