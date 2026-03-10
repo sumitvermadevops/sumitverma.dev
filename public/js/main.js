@@ -3,11 +3,9 @@
    Normal scrolling page with IntersectionObserver reveals.
    ============================================================ */
 
-/* --- 1. Copyright year + form timestamp --- */
+/* --- 1. Copyright year --- */
 const yearEl = document.getElementById("currentYear");
-const tsEl = document.getElementById("formTimestamp");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
-if (tsEl) tsEl.value = Date.now();
 
 /* --- 2. IntersectionObserver for scroll reveals --- */
 const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -226,102 +224,7 @@ function animateCounters(container) {
   });
 }
 
-/* --- 6. CSRF Token — Promise-based (handles 15-min expiry) --- */
-let csrfTokenPromise = fetch("/api/csrf")
-  .then(r => r.json())
-  .then(d => d.token)
-  .catch(() => "");
-
-let csrfRefreshTimeout = null;
-document.querySelectorAll("#contactForm input, #contactForm textarea, #contactForm select").forEach(field => {
-  field.addEventListener("focus", () => {
-    if (csrfRefreshTimeout) clearTimeout(csrfRefreshTimeout);
-    csrfRefreshTimeout = setTimeout(() => {
-      csrfTokenPromise = fetch("/api/csrf").then(r => r.json()).then(d => d.token).catch(() => "");
-    }, 300);
-  }, { once: false });
-});
-
-/* --- 7. Contact form submission --- */
-const contactForm = document.getElementById("contactForm");
-const formStatus = document.getElementById("formStatus");
-const submitBtn = document.getElementById("submitBtn");
-let activeSubmitController = null;
-
-if (contactForm) contactForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  if (activeSubmitController) activeSubmitController.abort();
-
-  const controller = new AbortController();
-  activeSubmitController = controller;
-  const timeoutId = setTimeout(() => controller.abort(), 15000);
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Sending...";
-  formStatus.textContent = "";
-  formStatus.className = "form-status";
-
-  let csrfToken;
-  try {
-    csrfToken = await csrfTokenPromise;
-  } catch {
-    formStatus.textContent = "Could not verify session. Please reload.";
-    formStatus.classList.add("error");
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Send Message";
-    activeSubmitController = null;
-    return;
-  }
-
-  const data = {
-    name: document.getElementById("name").value.trim(),
-    email: document.getElementById("email").value.trim(),
-    message: document.getElementById("message").value.trim(),
-    projectType: document.getElementById("projectType").value,
-    timeline: document.getElementById("timeline").value,
-    website_url: document.getElementById("website_url").value,
-    _ts: document.getElementById("formTimestamp").value,
-    _csrf: csrfToken,
-  };
-
-  try {
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-      signal: controller.signal,
-    });
-    clearTimeout(timeoutId);
-    if (controller !== activeSubmitController) return;
-    const result = await res.json();
-
-    if (res.ok && result.success) {
-      formStatus.textContent = result.message;
-      formStatus.classList.add("success");
-      contactForm.reset();
-      document.getElementById("formTimestamp").value = Date.now();
-      csrfTokenPromise = fetch("/api/csrf").then(r => r.json()).then(d => d.token).catch(() => "");
-    } else {
-      formStatus.textContent = result.error || "Something went wrong.";
-      formStatus.classList.add("error");
-    }
-  } catch (err) {
-    clearTimeout(timeoutId);
-    if (controller !== activeSubmitController) return;
-    formStatus.textContent = err.name === "AbortError"
-      ? "Request timed out. Please try again."
-      : "Network error. Please try again.";
-    formStatus.classList.add("error");
-  } finally {
-    if (controller === activeSubmitController) {
-      activeSubmitController = null;
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Send Message";
-    }
-  }
-});
-
-/* --- 8. Blog posts from Substack RSS --- */
+/* --- 6. Blog posts from Substack RSS --- */
 function showBlogFallback() {
   const container = document.getElementById("blogPosts");
   const fallback = document.getElementById("blogFallback");
@@ -423,19 +326,3 @@ function createBlogCard(post) {
   }
 })();
 
-/* --- 10. Email copy-on-click --- */
-const copyEmailBtn = document.getElementById("copyEmail");
-if (copyEmailBtn) {
-  copyEmailBtn.addEventListener("click", async () => {
-    const email = copyEmailBtn.dataset.email;
-    try {
-      await navigator.clipboard.writeText(email);
-      const span = copyEmailBtn.querySelector("span");
-      const original = span.textContent;
-      span.textContent = "Copied!";
-      setTimeout(() => { span.textContent = original; }, 2000);
-    } catch {
-      window.location.href = "mailto:" + email;
-    }
-  });
-}
